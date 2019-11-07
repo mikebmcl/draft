@@ -27,7 +27,7 @@ as summarized in
   \tcode{<unordered_map>}, \tcode{<unordered_set>}    \\ \rowsep
 \ref{container.adaptors}     & Container adaptors               &
   \tcode{<queue>}, \tcode{<stack>}     \\ \rowsep
-\ref{views}                  & Views                            & \tcode{<span>} \\ \rowsep
+\ref{span}                  & Spans                            & \tcode{<span>} \\ \rowsep
 \end{libsumtab}
 
 
@@ -10503,12 +10503,7 @@ template<class T, class Container>
 As if by \tcode{x.swap(y)}.
 \end{itemdescr}
 
-\rSec1[views]{Views}
-
-\rSec2[views.general]{General}
-
-\pnum
-The header \libheader{span} defines the view \tcode{span}.
+\rSec1[span]{Class template \tcode{span}}
 
 \rSec2[span.syn]{Header \tcode{<span>} synopsis}%
 
@@ -10518,7 +10513,7 @@ namespace std {
   // constants
   inline constexpr size_t dynamic_extent = numeric_limits<size_t>::max();
 
-  // \ref{views.span}, class template span
+  // class template \tcode{span}
   template<class ElementType, size_t Extent = dynamic_extent>
     class span;
 
@@ -10545,13 +10540,9 @@ namespace std {
 }
 \end{codeblock}
 
-\rSec2[views.span]{Class template \tcode{span}}
-
-\rSec3[span.overview]{Overview}
-
 \pnum
 \indexlibraryglobal{span}%
-A \tcode{span} is a view over a contiguous sequence of objects,
+A \tcode{span} type is a view over a contiguous sequence of objects,
 the storage of which is owned by some other object.
 
 \pnum
@@ -10659,7 +10650,7 @@ namespace std {
 \tcode{ElementType} is required to be
 a complete object type that is not an abstract class type.
 
-\rSec3[span.cons]{Constructors, copy, and assignment}
+\rSec2[span.cons]{Constructors, copy, and assignment}
 
 \indexlibraryctor{span}%
 \begin{itemdecl}
@@ -10831,7 +10822,7 @@ constexpr span& operator=(const span& other) noexcept = default;
 \tcode{size() == other.size() \&\& data() == other.data()}.
 \end{itemdescr}
 
-\rSec3[span.sub]{Subviews}
+\rSec2[span.sub]{Subviews}
 
 \indexlibrarymember{span}{first}%
 \begin{itemdecl}
@@ -10947,7 +10938,7 @@ return {data() + offset, count == dynamic_extent ? size() - offset : count};
 \end{codeblock}
 \end{itemdescr}
 
-\rSec3[span.obs]{Observers}
+\rSec2[span.obs]{Observers}
 
 \indexlibrarymember{span}{size}%
 \begin{itemdecl}
@@ -10982,7 +10973,7 @@ Equivalent to: \tcode{return size() * sizeof(element_type);}
 Equivalent to: \tcode{return size() == 0;}
 \end{itemdescr}
 
-\rSec3[span.elem]{Element access}
+\rSec2[span.elem]{Element access}
 
 \indexlibrary{\idxcode{operator[]}!\idxcode{span}}%
 \begin{itemdecl}
@@ -11040,7 +11031,7 @@ constexpr pointer data() const noexcept;
 Equivalent to: \tcode{return data_;}
 \end{itemdescr}
 
-\rSec3[span.iterators]{Iterator support}
+\rSec2[span.iterators]{Iterator support}
 
 \indexlibrarymember{iterator}{span}%
 \indexlibrarymember{const_iterator}{span}%
@@ -11155,7 +11146,7 @@ Equivalent to: \tcode{return const_reverse_iterator(cbegin());}
 \end{itemdescr}
 
 
-\rSec3[span.objectrep]{Views of object representation}
+\rSec2[span.objectrep]{Views of object representation}
 
 \indexlibraryglobal{as_bytes}%
 \begin{itemdecl}
@@ -11187,7 +11178,7 @@ template<class ElementType, size_t Extent>
 Equivalent to: \tcode{return \{reinterpret_cast<byte*>(s.data()), s.size_bytes()\};}
 \end{itemdescr}
 
-\rSec3[span.tuple]{Tuple interface}
+\rSec2[span.tuple]{Tuple interface}
 
 \indexlibraryglobal{tuple_size}%
 \begin{itemdecl}
